@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>红果万书屋</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: #f5f5f7;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .container {
+      width: 100%;
+      max-width: 900px;
+      height: 85vh;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .header {
+      background: #ffffff;
+      color: #1d1d1f;
+      padding: 18px 30px;
+      text-align: center;
+      border-bottom: 1px solid #e8e8ed;
+    }
+    .header h1 {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .header p {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+    #chat-container {
+      flex: 1;
+      position: relative;
+    }
+    .loading {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #666;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>红果万事屋</h1>
+      <p>有什么可以帮你的？</p>
+    </div>
+    <div id="chat-container">
+      <div class="loading">正在加载智能体...</div>
+    </div>
+  </div>
+
+  <script src="https://lf-cdn.coze.cn/obj/unpkg/latest/coze/web-sdk/dist/js-umd/index.min.js"></script>
+  <script>
+    const projectId = '7652707858278137906';
+    const token = 'eyJhbGciOiJSUzI1NiIsImtpZCI6IjgzOTBhNzIwLTdhY2EtNGY0MS1hMjU5LWYxODIwZjZjM2U3YSJ9.eyJpc3MiOiJodHRwczovL2FwaS5jb3plLmNuIiwiYXVkIjpbIlNFd1ZRczFTalRPR05HdUxRUEVGODJCQXhvZjRSbVY2Il0sImV4cCI6ODIxMDI2Njg3Njc5OSwiaWF0IjoxNzgzMzA3NzA2LCJzdWIiOiJzcGlmZmU6Ly9hcGkuY29zeS5jbi93b3JrbG9hZF9pZGVudGl0eS9pZDo3NjUyNzE1NzgzNTM3MzYwOTM0Iiwic3JjIjoiaW5ib3VuZF9hdXRoX2FjY2Vzc190b2tlbl9pZDo3NjU5MjQ4Mjc3OTg4MDQ4OTQ3In0.JJyZojop3jyGAmZIE1q4qfCSQohTCHLud5r_vLTQqUnKvPxz7MuTLfthoDFnx3O3_ancfCnwNKj8ugEYXwQEhxrXIa_m_RUA0v14lI3psPeBB3wTIZWTp-I3TqAQ4ZMJtfPWDyKywnXDxp4eYYMAwDufINfoYlF1bdqgR78G651MtM1rTtuEWifFpNx__T2lu4l1J6kTqzC0qVxodbzZFGYAGFunnPYLxkUsyA6-6S9563YhoJKW_QlbfIZ6AzxIzPUoDgdovtTvD1ouYu3HtX7X_IjtTJzbDAT_XTsQz9DzO6iPfaeR4sao0pooZz5fUyC2dAo3xif-3iwd3Qx2wA';
+
+    cozeWebSDK.init({
+      projectId: projectId,
+      refreshToken: () => Promise.resolve(token),
+      container: document.getElementById('chat-container')
+    }).then(() => {
+      document.querySelector('.loading').style.display = 'none';
+    }).catch((err) => {
+      console.error('SDK 初始化失败:', err);
+      document.querySelector('.loading').textContent = '加载失败，请刷新页面重试';
+    });
+  </script>
+</body>
+</html>
